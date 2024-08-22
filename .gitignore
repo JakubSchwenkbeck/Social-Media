@@ -167,3 +167,4 @@ Dockerfile
 config.ru
 Rakefile
 Gemfile.lock
+/db/migrate
