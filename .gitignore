@@ -141,6 +141,7 @@ yarn-debug.log*
 .project
 *.tmproj
 
+
 # Ignore documentation artifacts
 /doc/api
 /doc/app
