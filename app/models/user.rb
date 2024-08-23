@@ -4,6 +4,9 @@ class User < ApplicationRecord
 
   has_one_attached :profile_picture
 
+    # Fügt eine 1-zu-viele-Beziehung hinzu: Ein User hat viele Posts
+    has_many :posts, dependent: :destroy
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
   # You might want to add validations for the profile picture, e.g.:
