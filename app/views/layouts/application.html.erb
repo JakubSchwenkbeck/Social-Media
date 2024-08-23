@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Social Media" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -18,24 +18,35 @@
   </head>
 
   <body>
-    <header>
-      <nav>
-        <ul>
-          <% if user_signed_in? %>
-            <li><%= link_to 'Home', root_path %></li>
-            <li><%= link_to 'New Post', new_post_path %></li>
-            <li><%= link_to 'Profile', profile_path(current_user) %></li>
-    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% else %>
-            <li><%= link_to 'Sign up', new_user_registration_path %></li>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
-          <% end %>
-        </ul>
+    <header class="site-header">
+      <nav class="site-nav">
+        <div class="container">
+          <a href="<%= root_path %>" class="logo">Social Media</a>
+          <ul class="nav-links">
+            <% if user_signed_in? %>
+              <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+              <li><%= link_to 'New Post', new_post_path, class: 'nav-link' %></li>
+              <li><%= link_to 'Profile', profile_path(current_user), class: 'nav-link' %></li>
+              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link sign-out' %></li>
+            <% else %>
+              <li><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
+              <li><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
+            <% end %>
+          </ul>
+        </div>
       </nav>
     </header>
 
-    <main>
-      <%= yield %>
+    <main class="site-main">
+      <div class="container">
+        <%= yield %>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <%= Time.current.year %> Social Media. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>

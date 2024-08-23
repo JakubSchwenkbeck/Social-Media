@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   # Define a route for user profiles
-  resources :users, only: [:show]
+  resources :users, only: [:edit, :update, :show]
 
   # Alternatively, a custom route
   get 'profile/:id', to: 'users#show', as: 'profile'

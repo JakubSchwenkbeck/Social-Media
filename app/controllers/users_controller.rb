@@ -11,4 +11,16 @@ class UsersController < ApplicationController
     current_user.profile_picture.purge if current_user.profile_picture.attached?
     redirect_to edit_user_registration_path, notice: 'Profile picture removed successfully.'
   end
+  def user_params
+    params.require(:user).permit(:username, :email, :biography, :profile_picture, :password, :password_confirmation)
+  end
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: 'Profile updated successfully.'
+    else
+      render :edit
+    end
+  end
+  
 end
