@@ -1,0 +1,18 @@
+<!-- Login: app/views/devise/sessions/new.html.erb -->
+<div class="login-form">
+  <h1>Log In</h1>
+  <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), method: :post, local: true) do |f| %>
+    <%= devise_error_messages! %>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+    <div>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div>
+      <%= f.submit "Log in" %>
+    </div>
+  <% end %>
+</div>

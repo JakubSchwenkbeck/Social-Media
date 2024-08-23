@@ -1,0 +1,34 @@
+<h1><%= @user.username %>'s Profile</h1>
+
+<div class="profile-info">
+  <% if @user.profile_picture.attached? %>
+    <%= image_tag @user.profile_picture.variant(resize_to_limit: [150, 150]), alt: @user.username, class: 'profile-pic' %>
+  <% else %>
+    <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+  <% end %>
+  <h2><%= @user.username %></h2>
+
+  <% if @user == current_user %>
+    <div class="user-actions">
+      <%= link_to 'Edit Profile', edit_user_registration_path %>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  <% end %>
+</div>
+
+<div class="user-posts">
+  <h3>Posts by <%= @user.username %>:</h3>
+
+  <% if @posts.any? %>
+    <ul>
+      <% @posts.each do |post| %>
+        <li>
+          <h4><%= link_to post.title, post_path(post) %></h4>
+          <p><%= truncate(post.content, length: 100) %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>This user hasn't released any posts yet.</p>
+  <% end %>
+</div>

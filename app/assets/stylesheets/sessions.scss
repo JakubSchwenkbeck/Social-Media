@@ -1,0 +1,41 @@
+/* Login and Registration Forms */
+.login-form, .registration-form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form h1, .registration-form h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .login-form label, .registration-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .login-form input[type="text"], .login-form input[type="password"],
+  .registration-form input[type="text"], .registration-form input[type="password"],
+  .registration-form input[type="email"], .registration-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .login-form input[type="submit"], .registration-form input[type="submit"] {
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .login-form input[type="submit"]:hover, .registration-form input[type="submit"]:hover {
+    background: #555;
+  }
+  

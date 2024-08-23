@@ -6,11 +6,15 @@
     <li>
       <%= post.content %> - from :
       <% if post.user.profile_picture.attached? %>
-        <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+        <%= link_to profile_path(post.user) do %>
+          <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+        <% end %>
       <% else %>
-        <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+        <%= link_to profile_path(post.user) do %>
+          <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+        <% end %>
       <% end %>
-       - <%= post.user.username %>
+      - <%= link_to post.user.username, profile_path(post.user) %>
     </li>
   <% end %>
 </ul>
