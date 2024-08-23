@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+ .profile-pic {
+    vertical-align: middle;
+    border-radius: 50%; /* Macht das Bild rund */
+    width: 30px; /* Breite des Bildes */
+    height: 30px; /* Höhe des Bildes, um es quadratisch zu machen */
+    margin-right: 10px; /* Abstand zwischen Bild und Text */
+    object-fit: cover; /* Stellt sicher, dass das Bild vollständig in den Kreis passt */
+  }
+  

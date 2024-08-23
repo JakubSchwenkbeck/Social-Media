@@ -3,6 +3,14 @@
 
 <ul>
   <% @posts.each do |post| %>
-    <li><%= post.content %> - <%= post.user.username %></li>
+    <li>
+      <%= post.content %> - from :
+      <% if post.user.profile_picture.attached? %>
+        <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+      <% else %>
+        <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+      <% end %>
+       - <%= post.user.username %>
+    </li>
   <% end %>
 </ul>
