@@ -4,4 +4,6 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :title, presence: true
 
+    # Adding attachment handling
+    has_one_attached :image
 end

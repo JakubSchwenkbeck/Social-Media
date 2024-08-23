@@ -1,20 +1,31 @@
 <h1>All Posts</h1>
-<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Post', new_post_path, class: 'button' %>
 
-<ul>
+<ul class="posts-list">
   <% @posts.each do |post| %>
-    <li>
-      <%= post.content %> - from :
-      <% if post.user.profile_picture.attached? %>
-        <%= link_to profile_path(post.user) do %>
-          <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+    <li class="post-item">
+      <div class="post-header">
+        <% if post.user.profile_picture.attached? %>
+          <%= link_to profile_path(post.user) do %>
+            <%= image_tag post.user.profile_picture.variant(resize_to_limit: [50, 50]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+          <% end %>
+        <% else %>
+          <%= link_to profile_path(post.user) do %>
+            <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= link_to profile_path(post.user) do %>
-          <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+        <div class="user-info">
+          <%= link_to post.user.username, profile_path(post.user), class: 'username' %>
+        </div>
+      </div>
+      <div class="post-content">
+        <% if post.image.attached? %>
+          <%= image_tag post.image.variant(resize_to_limit: [600, 600]), alt: 'Post image', class: 'post-image' %>
         <% end %>
-      <% end %>
-      - <%= link_to post.user.username, profile_path(post.user) %>
+        <h2 class="post-title"><%= post.title %></h2>
+        <p><%= post.content %></p>
+      </div>
+      <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
     </li>
   <% end %>
 </ul>

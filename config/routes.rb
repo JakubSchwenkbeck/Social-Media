@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   get 'profile/:id', to: 'users#show', as: 'profile'
 
   # Define RESTful routes for posts, including the show action
-  resources :posts, only: [:index, :new, :create, :show]
+ # resources :posts, only: [:index, :new, :create, :show]
+  resources :posts
+
+  # Add this route inside your Rails routes configuration
+#delete 'remove_profile_picture', to: 'users#remove_profile_picture', as: 'remove_profile_picture'
+delete '/remove_profile_picture', to: 'users#remove_profile_picture', as: :remove_profile_picture
 
   # Define the root path
   root 'posts#index'

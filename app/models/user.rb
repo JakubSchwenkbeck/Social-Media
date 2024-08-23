@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   # You might want to add validations for the profile picture, e.g.:
   validate :acceptable_image
+  validates :biography, length: { maximum: 500 }, allow_blank: true
 
   def acceptable_image
     return unless profile_picture.attached?
