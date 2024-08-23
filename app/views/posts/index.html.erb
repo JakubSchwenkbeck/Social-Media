@@ -7,11 +7,11 @@
       <div class="post-header">
         <% if post.user.profile_picture.attached? %>
           <%= link_to profile_path(post.user) do %>
-            <%= image_tag post.user.profile_picture.variant(resize_to_limit: [50, 50]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+            <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
           <% end %>
         <% else %>
           <%= link_to profile_path(post.user) do %>
-            <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
+            <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-index-pic', size: "30x30" %>
           <% end %>
         <% end %>
         <div class="user-info">
