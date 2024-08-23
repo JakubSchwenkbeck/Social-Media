@@ -1,0 +1,90 @@
+/* General Styles */
+.profile-heading {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.profile-details {
+  flex-grow: 1;
+}
+
+.profile-username {
+  font-size: 2em;
+  margin: 0;
+}
+
+.profile-biography {
+  font-size: 1.1em;
+  color: #555;
+}
+
+.user-actions {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+}
+
+.button-sign-out {
+  background-color: #dc3545;
+}
+
+.posts-heading {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.posts-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.post-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.post-content {
+  color: #555;
+}
+
+.no-posts-message {
+  text-align: center;
+  color: #888;
+}

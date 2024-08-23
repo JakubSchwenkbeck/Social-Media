@@ -1,0 +1,99 @@
+/* app/assets/stylesheets/posts_index.css */
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .posts-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .post-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    padding: 15px;
+    max-width: 800px;
+  }
+  
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .profile-pic {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .user-info {
+    flex-grow: 1;
+  }
+  
+  .username {
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .username:hover {
+    text-decoration: underline;
+  }
+  
+  .post-content {
+    margin-bottom: 10px;
+  }
+  
+  .post-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .post-content p {
+    font-size: 16px;
+    color: #555;
+  }
+  
