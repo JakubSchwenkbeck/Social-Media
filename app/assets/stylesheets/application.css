@@ -13,20 +13,21 @@
  *= require_tree .
  *= require_self
  */
- /* Global Styles */
- @import 'sessions';
- @import 'posts';
- @import 'users';
- @import 'profile';
 
+/* Global Styles */
+@import 'sessions';
+@import 'posts';
+@import 'users';
+@import 'profile';
 @import 'posts_index';
 
- /* General Styles */
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #e6ebf0; /* Light, calming grayish-blue background */
+  color: #333; /* Dark gray text for readability */
 }
 
 .container {
@@ -37,9 +38,10 @@ body {
 }
 
 .site-header {
-  background-color: #007bff;
+  background: linear-gradient(90deg, #2c6e49, #6fcf97); /* Forest green to mint green gradient */
   color: white;
   padding: 15px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .site-nav {
@@ -49,9 +51,11 @@ body {
 }
 
 .logo {
-  font-size: 1.5em;
+  font-size: 1.8em;
   color: white;
   text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .nav-links {
@@ -66,61 +70,80 @@ body {
 }
 
 .nav-link, .logo {
-  color: white;
+  color: #e6ebf0; /* Softer white for links */
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover, .logo:hover {
+  color: #a3d9b1; /* Light mint green for hover effect */
   text-decoration: underline;
 }
 
 .sign-out {
-  background-color: #dc3545;
+  background-color: #e74c3c; /* Warm red for sign-out button */
   padding: 8px 16px;
   border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.sign-out:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
 }
 
 .site-main {
-  background-color: white;
+  background-color: white; /* White content area to keep focus on the posts */
   padding: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333; /* Dark gray text */
 }
 
 .site-footer {
-  background-color: #007bff;
+  background-color: #2c6e49; /* Forest green footer */
   color: white;
-  padding: 10px 0;
+  padding: 15px 0;
   text-align: center;
+  border-top: 3px solid #6fcf97; /* Mint green border for footer */
 }
+
 .field textarea {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #bdc3c7; /* Neutral gray border */
   font-size: 1rem;
-}
-/* Ensure your CSS file includes these styles */
+  background-color: #e6ebf0; /* Matching body background for a seamless look */
+  color: #333;
+  transition: border-color 0.3s ease;
 
+  &:focus {
+    border-color: #2c6e49; /* Forest green focus border for a subtle effect */
+  }
+}
 
 .logo-image {
-  max-width: 150px; /* Adjust the size of the logo as needed */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 150px;
+  height: auto;
 }
 
-/* Ensure the navigation container spans the full width */
+/* Navigation Container */
 .site-nav .container {
   display: flex;
-  align-items: center; /* Vertically center items in the navigation bar */
-  justify-content: space-between; /* Distribute space between items */
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Center the logo */
 .logo {
   text-align: center;
-  flex: 1; /* Allow the logo to take up available space between navigation links */
+  flex: 1;
 }
 
-/* Ensure that navigation links are positioned correctly */
+/* Navigation Links */
 .nav-left ul,
 .nav-right ul {
   display: flex;
@@ -130,19 +153,13 @@ body {
 }
 
 .nav-left ul {
-  justify-content: flex-start; /* Align links to the left */
+  justify-content: flex-start;
 }
 
 .nav-right ul {
-  justify-content: flex-end; /* Align links to the right */
+  justify-content: flex-end;
 }
 
 .nav-link {
-  margin: 0 10px; /* Space between links */
-}
-
-/* Optional: Adjust logo styling */
-.logo {
-  font-size: 1.5em; /* Adjust font size if needed */
-  font-weight: bold;
+  margin: 0 10px;
 }
