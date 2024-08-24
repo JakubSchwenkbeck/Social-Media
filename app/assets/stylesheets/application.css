@@ -99,3 +99,10 @@ body {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+/* Ensure your CSS file includes these styles */
+
+
+.logo-image {
+  max-width: 150px; /* Adjust the size of the logo as needed */
+  height: auto; /* Maintain aspect ratio */
+}

@@ -7,7 +7,7 @@
       <div class="post-header">
         <% if post.user.profile_picture.attached? %>
           <%= link_to profile_path(post.user) do %>
-<%= image_tag post.user.profile_picture, alt: "#{post.user.username}'s profile picture", class: 'profile-index-pic', size: "30x30" %>
+            <%= image_tag post.user.profile_picture, alt: "#{post.user.username}'s profile picture", class: 'profile-index-pic', size: "30x30" %>
           <% end %>
         <% else %>
           <%= link_to profile_path(post.user) do %>
@@ -19,13 +19,16 @@
         </div>
       </div>
       <div class="post-content">
-        <% if post.image.attached? %>
-<%= image_tag post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
-        <% end %>
         <h2 class="post-title"><%= post.title %></h2>
+
+        <% if post.image.attached? %>
+          <%= image_tag post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
+        <% end %>
         <p><%= post.content %></p>
       </div>
-      <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
+      <% if user_signed_in? && post.user == current_user %>
+        <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
+      <% end %>
     </li>
   <% end %>
 </ul>
