@@ -8,7 +8,5 @@
 <p><%= @post.content %></p>
 <p>Posted by <%= link_to @post.user.username, profile_path(@post.user) %></p>
 
-  <h1><%= @post.title %></h1>
-  <p><%= @post.content %></p>
   <%= link_to 'Back to All Posts', posts_path, class: 'button' %>
 </div>

@@ -17,24 +17,29 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <nav class="site-nav">
-        <div class="container">
-          <a href="<%= root_path %>" class="logo">Reverie</a>
+   <header class="site-header">
+  <nav class="site-nav">
+    <div class="container">
+      <div class="nav-left">
+        <% if user_signed_in? %>
           <ul class="nav-links">
-            <% if user_signed_in? %>
-              <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
-              <li><%= link_to 'New Post', new_post_path, class: 'nav-link' %></li>
-              <li><%= link_to 'Profile', profile_path(current_user), class: 'nav-link' %></li>
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link sign-out' %></li>
-            <% else %>
-              <li><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
-              <li><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
-            <% end %>
+            <li><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+            <li><%= link_to 'New Post', new_post_path, class: 'nav-link' %></li>
+            <li><%= link_to 'Profile', profile_path(current_user), class: 'nav-link' %></li>
+            <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'nav-link sign-out' %></li>
           </ul>
-        </div>
-      </nav>
-    </header>
+        <% else %>
+          <ul class="nav-links">
+            <li><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
+            <li><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
+          </ul>
+        <% end %>
+      </div>
+      <a href="<%= root_path %>" class="logo">Reverie</a>
+      <div class="nav-right"></div>
+    </div>
+  </nav>
+</header>
 
     <main class="site-main">
       <div class="container">

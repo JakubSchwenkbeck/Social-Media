@@ -106,3 +106,43 @@ body {
   max-width: 150px; /* Adjust the size of the logo as needed */
   height: auto; /* Maintain aspect ratio */
 }
+
+/* Ensure the navigation container spans the full width */
+.site-nav .container {
+  display: flex;
+  align-items: center; /* Vertically center items in the navigation bar */
+  justify-content: space-between; /* Distribute space between items */
+}
+
+/* Center the logo */
+.logo {
+  text-align: center;
+  flex: 1; /* Allow the logo to take up available space between navigation links */
+}
+
+/* Ensure that navigation links are positioned correctly */
+.nav-left ul,
+.nav-right ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-left ul {
+  justify-content: flex-start; /* Align links to the left */
+}
+
+.nav-right ul {
+  justify-content: flex-end; /* Align links to the right */
+}
+
+.nav-link {
+  margin: 0 10px; /* Space between links */
+}
+
+/* Optional: Adjust logo styling */
+.logo {
+  font-size: 1.5em; /* Adjust font size if needed */
+  font-weight: bold;
+}
