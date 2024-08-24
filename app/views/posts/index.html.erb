@@ -7,7 +7,7 @@
       <div class="post-header">
         <% if post.user.profile_picture.attached? %>
           <%= link_to profile_path(post.user) do %>
-            <%= image_tag post.user.profile_picture.variant(resize_to_limit: [30, 30]), alt: "#{post.user.username}'s profile picture", class: 'profile-pic' %>
+<%= image_tag post.user.profile_picture, alt: "#{post.user.username}'s profile picture", class: 'profile-index-pic', size: "30x30" %>
           <% end %>
         <% else %>
           <%= link_to profile_path(post.user) do %>
@@ -20,7 +20,7 @@
       </div>
       <div class="post-content">
         <% if post.image.attached? %>
-          <%= image_tag post.image.variant(resize_to_limit: [600, 600]), alt: 'Post image', class: 'post-image' %>
+<%= image_tag post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
         <% end %>
         <h2 class="post-title"><%= post.title %></h2>
         <p><%= post.content %></p>
