@@ -2,7 +2,7 @@
   <h1><%= @post.title %></h1>
 
 <% if @post.image.attached? %>
-  <%= image_tag @post.image.variant(resize_to_limit: [800, 800]), alt: 'Post image', class: 'post-image' %>
+          <%= image_tag @post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
 <% end %>
 
 <p><%= @post.content %></p>

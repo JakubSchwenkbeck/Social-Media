@@ -3,7 +3,7 @@
 <div class="profile-container">
   <div class="profile-header">
     <% if @user.profile_picture.attached? %>
-      <%= image_tag @user.profile_picture.variant(resize_to_limit: [150, 150]), alt: @user.username, class: 'profile-pic' %>
+      <%= image_tag @user.profile_picture, alt: @user.username, style: 'width: 150px; height: 150px;' %>
     <% else %>
       <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
     <% end %>
@@ -33,6 +33,11 @@
       <% @posts.each do |post| %>
         <li class="post-item">
           <h4 class="post-title"><%= link_to post.title, post_path(post) %></h4>
+          
+          <% if post.image.attached? %>
+            <%= image_tag post.image, alt: 'Post image', style: 'max-width: 150px; max-height: 150px; width: auto; height: auto;' %>
+          <% end %>
+
           <p class="post-content"><%= truncate(post.content, length: 100) %></p>
         </li>
       <% end %>
