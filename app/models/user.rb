@@ -24,6 +24,48 @@ class User < ApplicationRecord
   # Allow blank biographies.
   validates :biography, length: { maximum: 500 }, allow_blank: true
 
+
+ # Friendships
+ has_many :sent_friendships, class_name: 'Friendship', foreign_key: 'user_id', dependent: :destroy
+ has_many :received_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+
+ # Friends (accepted)
+ has_many :friends, -> { where(friendships: { status: :accepted }) }, through: :sent_friendships, source: :friend
+
+ # Pending friend requests sent by the user
+ has_many :pending_sent_requests, -> { where(friendships: { status: :pending }) }, through: :sent_friendships, source: :friend
+
+ # Pending friend requests received by the user
+ has_many :pending_received_requests, -> { where(friendships: { status: :pending }) }, through: :received_friendships, source: :user
+
+ # Define enum for friendship status
+ enum friendship_status: { pending: 0, accepted: 1 }
+
+ # Methods for friend management
+ def send_friend_request(friend)
+   sent_friendships.create(friend: friend, status: :pending)
+ end
+
+ def accept_friend_request(user)
+   received_friendships.find_by(user: user)&.update(status: :accepted)
+ end
+
+ def remove_friend(friend)
+   friends.destroy(friend)
+ end
+
+ def friends_with?(user)
+   friends.include?(user)
+ end
+
+ def sent_request_to?(user)
+   sent_friend_requests.include?(user)
+ end
+
+ def pending_request_from?(user)
+   pending_received_requests.include?(user)
+ end
+
   # Custom validation for the profile picture.
   # Ensures the attached image is no larger than 1 megabyte and is either JPEG or PNG.
   def acceptable_image

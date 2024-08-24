@@ -28,6 +28,33 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :email, :biography, :profile_picture, :password, :password_confirmation)
   end
 
+  def send_friend_request
+    @friend = User.find(params[:id])
+    if current_user.send_friend_request(@friend)
+      redirect_to @friend, notice: "Friend request sent."
+    else
+      redirect_to @friend, alert: "Unable to send friend request."
+    end
+  end
+
+  def accept_friend_request
+    @user = User.find(params[:id])
+    if current_user.accept_friend_request(@user)
+      redirect_to @user, notice: "Friend request accepted."
+    else
+      redirect_to @user, alert: "Unable to accept friend request."
+    end
+  end
+
+  def remove_friend
+    @friend = User.find(params[:id])
+    if current_user.remove_friend(@friend)
+      redirect_to @friend, notice: "Friend removed."
+    else
+      redirect_to @friend, alert: "Unable to remove friend."
+    end
+  end
+
   # Update the user profile with the provided parameters.
   # Redirect to the user's profile page on success or re-render the edit form on failure.
   def update
