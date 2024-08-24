@@ -4,7 +4,6 @@ class FriendshipsController < ApplicationController
 
   # Send a friend request
   def create
-    # Check if a friend request already exists or if the user is trying to friend themselves
     if current_user.sent_request_to?(@user)
       redirect_to @user, alert: 'Friend request already sent.'
     elsif current_user.pending_request_from?(@user)
@@ -12,7 +11,6 @@ class FriendshipsController < ApplicationController
     elsif @user == current_user
       redirect_to @user, alert: "You can't send a friend request to yourself."
     else
-      # Create a new friendship with pending status
       current_user.send_friend_request(@user)
       redirect_to @user, notice: 'Friend request sent.'
     end
@@ -41,7 +39,6 @@ class FriendshipsController < ApplicationController
 
   private
 
-  # Set the user based on the provided ID in params
   def set_user
     @user = User.find(params[:id])
   end
