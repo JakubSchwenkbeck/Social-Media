@@ -168,3 +168,8 @@ config.ru
 Rakefile
 Gemfile.lock
 /db/migrate
+
+
+# ignore pictures
+
+app/assets/images
