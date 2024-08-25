@@ -53,6 +53,6 @@
 
 1. **Clone the Repository:**
    `git clone https://github.com/JakubSchwenkbeck/Social-Media/.git`
-2. **Navigate to the Project Directory:**
-   `cd behavior-classificator`
-3. **Run the Model:** Follow the instructions in the `scripts` directory to set up and run the model.
+2. **Navigate to the Root Directory:**
+   `cd Anecdote `
+3. **Run the App** Use `rails server` to put up a local server accessible by visiting http://localhost:3000/.
