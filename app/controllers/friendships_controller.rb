@@ -4,17 +4,23 @@ class FriendshipsController < ApplicationController
 
   # Send a friend request
   def create
-    if current_user.sent_request_to?(@user)
-      redirect_to @user, alert: 'Friend request already sent.'
+    if current_user.friends_with?(@user)
+      redirect_to profile_path(@user), notice: 'You are already friends.'
+    elsif current_user.sent_request_to?(@user)
+      redirect_to profile_path(@user), notice: 'Friend request already sent.'
     elsif current_user.pending_request_from?(@user)
-      redirect_to @user, alert: 'Friend request already sent and awaiting acceptance.'
+      redirect_to profile_path(@user), notice: 'Friend request already pending from this user.'
     elsif @user == current_user
-      redirect_to @user, alert: "You can't send a friend request to yourself."
+      redirect_to profile_path(@user), alert: "You can't send a friend request to yourself."
     else
-      current_user.send_friend_request(@user)
-      redirect_to @user, notice: 'Friend request sent.'
+      if current_user.send_friend_request(@user)
+        redirect_to profile_path(@user), notice: 'Friend request sent successfully.'
+      else
+        redirect_to profile_path(@user), alert: 'Unable to send friend request.'
+      end
     end
   end
+
 
   # Accept a friend request
   def accept

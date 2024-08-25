@@ -19,13 +19,26 @@
 
   <% if user_signed_in? %>
   <% if @user == current_user %>
+    <!-- User's own profile -->
     <div class="user-actions">
       <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
       <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
     </div>
+    <h3>Your Friends</h3>
+    <% if @user.friends.any? %>
+      <ul class="friends-list">
+        <% @user.friends.each do |friend| %>
+          <li class="friend-item">
+            <%= link_to friend.username, profile_path(friend) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>You have no friends yet.</p>
+    <% end %>
   <% elsif current_user.friends_with?(@user) %>
     <div class="user-actions">
-      <%= button_to 'Remove Friend', remove_friendship_user_path(@user), method: :delete, class: 'button button-sign-out' %>
+      <p>Befriended</p>
     </div>
   <% elsif current_user.sent_request_to?(@user) %>
     <div class="user-actions">
@@ -38,13 +51,12 @@
     </div>
   <% else %>
     <div class="user-actions">
-      <%= button_to 'Send Friend Request', create_friendship_user_path(@user), method: :post, class: 'button' %>
+      <%= button_to 'Send Friend Request', create_friendship_user_path(@user), method: :post, class: 'button', remote: true %>
     </div>
   <% end %>
 <% end %>
 
 </div>
-
 
 <div class="user-posts">
   <h3 class="posts-heading">Posts by <%= @user.username %>:</h3>
