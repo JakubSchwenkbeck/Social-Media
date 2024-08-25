@@ -27,7 +27,7 @@
    - **Storytelling:** Encourage group participation in telling stories by allowing multiple users to add content to a single post.
 
 ### 6. **Responsive Design**
-   - **User-Friendly Interface:** Anecdote is designed to be responsive, providing an optimal viewing experience across a wide range of devices, from mobile phones to desktop computers.
+   - **User-Friendly Interface:** Anecdote is designed to be responsive, providing an optimal viewing experience across a wide range of devices in the web, from mobile phones to desktop computers.
 
 ### 7. **Notifications (Planned)**
    - **Stay Informed:** Future updates will include notifications to keep users informed of new friend requests, comments, and likes on their posts.
