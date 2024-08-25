@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       # Route to send a friend request
       post :create_friendship, to: 'friendships#create'
       # Route to accept a friend request
-      patch :accept_friendship, to: 'friendships#update'
+      patch :accept_friendship, to: 'friendships#accept'
+      # Route to ignore a friend request
+      delete :ignore_friendship, to: 'friendships#ignore'
       # Route to remove a friend
       delete :remove_friendship, to: 'friendships#destroy'
     end

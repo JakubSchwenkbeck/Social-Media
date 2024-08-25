@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  before_action :set_user, only: [:create, :destroy]
+  before_action :set_user, only: [:create, :accept, :ignore, :destroy]
   before_action :authenticate_user!
 
   # Send a friend request
@@ -17,11 +17,22 @@ class FriendshipsController < ApplicationController
   end
 
   # Accept a friend request
-  def update
-    @friendship = current_user.received_friendships.find_by(user: params[:id])
-    if @friendship
-      @friendship.update(status: :accepted)
-      redirect_to @friendship.user, notice: 'Friend request accepted.'
+  def accept
+    friendship = current_user.received_friendships.find_by(user: @user)
+    if friendship
+      friendship.update(status: :accepted)
+      redirect_to @user, notice: 'Friend request accepted.'
+    else
+      redirect_to root_path, alert: 'Friend request not found.'
+    end
+  end
+
+  # Ignore (delete) a friend request
+  def ignore
+    friendship = current_user.received_friendships.find_by(user: @user)
+    if friendship
+      friendship.destroy
+      redirect_to @user, notice: 'Friend request ignored.'
     else
       redirect_to root_path, alert: 'Friend request not found.'
     end

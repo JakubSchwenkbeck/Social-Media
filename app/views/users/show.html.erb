@@ -18,30 +18,33 @@
   </div>
 
   <% if user_signed_in? %>
-    <% if @user == current_user %>
-      <div class="user-actions">
-        <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
-        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
-      </div>
-    <% elsif current_user.friends_with?(@user) %>
-      <div class="user-actions">
-        <%= button_to 'Remove Friend', remove_friendship_user_path(@user), method: :delete, class: 'button button-sign-out' %>
-      </div>
-    <% elsif current_user.sent_request_to?(@user) %>
-      <div class="user-actions">
-        <p>Friend request already sent.</p>
-      </div>
-    <% elsif current_user.pending_request_from?(@user) %>
-      <div class="user-actions">
-        <p>Friend request sent. Awaiting acceptance.</p>
-      </div>
-    <% else %>
-      <div class="user-actions">
-        <%= button_to 'Send Friend Request', create_friendship_user_path(@user), method: :post, class: 'button' %>
-      </div>
-    <% end %>
+  <% if @user == current_user %>
+    <div class="user-actions">
+      <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
+      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
+    </div>
+  <% elsif current_user.friends_with?(@user) %>
+    <div class="user-actions">
+      <%= button_to 'Remove Friend', remove_friendship_user_path(@user), method: :delete, class: 'button button-sign-out' %>
+    </div>
+  <% elsif current_user.sent_request_to?(@user) %>
+    <div class="user-actions">
+      <p>Friend request already sent.</p>
+    </div>
+  <% elsif current_user.pending_request_from?(@user) %>
+    <div class="user-actions">
+      <%= button_to 'Accept Friend Request', accept_friendship_user_path(@user), method: :patch, class: 'button' %>
+      <%= button_to 'Ignore Friend Request', ignore_friendship_user_path(@user), method: :delete, class: 'button' %>
+    </div>
+  <% else %>
+    <div class="user-actions">
+      <%= button_to 'Send Friend Request', create_friendship_user_path(@user), method: :post, class: 'button' %>
+    </div>
   <% end %>
+<% end %>
+
 </div>
+
 
 <div class="user-posts">
   <h3 class="posts-heading">Posts by <%= @user.username %>:</h3>
