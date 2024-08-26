@@ -1,6 +1,6 @@
 <h1>Edit Post</h1>
 
-<%= form_with(model: @post, local: true) do |form| %>
+<%= form_with(model: @post, local: true, html: { multipart: true }) do |form| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -28,6 +28,16 @@
     <%= form.file_field :image %>
     <% if @post.image.attached? %>
       <%= image_tag @post.image.variant(resize_to_limit: [300, 300]), alt: 'Post image', class: 'post-image' %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :collaborator_ids, "Collaborators" %>
+    <%= form.collection_check_boxes :collaborator_ids, current_user.friends, :id, :username do |b| %>
+      <div class="form-check">
+        <%= b.check_box(class: 'form-check-input') %>
+        <%= b.label(class: 'form-check-label') %>
+      </div>
     <% end %>
   </div>
 

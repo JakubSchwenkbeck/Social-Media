@@ -7,26 +7,40 @@
       <div class="post-header">
         <% if post.user.profile_picture.attached? %>
           <%= link_to profile_path(post.user) do %>
-            <%= image_tag post.user.profile_picture, alt: "#{post.user.username}'s profile picture", class: 'profile-index-pic', size: "30x30" %>
+            <%= image_tag post.user.profile_picture, alt: "#{post.user.username}'s profile picture", class: 'profile-index-pic' %>
           <% end %>
         <% else %>
           <%= link_to profile_path(post.user) do %>
-            <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-index-pic', size: "30x30" %>
+            <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-index-pic' %>
           <% end %>
         <% end %>
         <div class="user-info">
           <%= link_to post.user.username, profile_path(post.user), class: 'username' %>
+        </div>
+        <div class="post-collaborators">
+          <strong>Collaborators:</strong>
+          <% if post.collaborators.any? %>
+            <ul class="collaborators-list">
+              <% post.collaborators.each do |collaborator| %>
+                <li>
+                  <%= link_to collaborator.username, profile_path(collaborator) %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No collaborators</p>
+          <% end %>
         </div>
       </div>
       <div class="post-content">
         <h2 class="post-title"><%= post.title %></h2>
 
         <% if post.image.attached? %>
-          <%= image_tag post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
+          <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
         <% end %>
         <p><%= post.content %></p>
       </div>
-      <% if user_signed_in? && post.user == current_user %>
+      <% if user_signed_in? && (post.user == current_user || post.collaborators.include?(current_user)) %>
         <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
       <% end %>
     </li>

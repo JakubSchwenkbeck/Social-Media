@@ -1,12 +1,31 @@
 <div class="single-post">
   <h1><%= @post.title %></h1>
 
-<% if @post.image.attached? %>
-          <%= image_tag @post.image, alt: 'Post image', style: 'max-width: 600px; max-height: 600px; width: auto; height: auto;', class: 'post-image' %>
-<% end %>
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image, alt: 'Post image', class: 'post-image' %>
+  <% end %>
 
-<p><%= @post.content %></p>
-<p>Posted by <%= link_to @post.user.username, profile_path(@post.user) %></p>
+  <p><%= @post.content %></p>
+  <p>Posted by <%= link_to @post.user.username, profile_path(@post.user) %></p>
+
+  <div class="post-collaborators">
+    <strong>Collaborators:</strong>
+    <% if @post.collaborators.any? %>
+      <ul class="collaborators-list">
+        <% @post.collaborators.each do |collaborator| %>
+          <li>
+            <%= link_to collaborator.username, profile_path(collaborator) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No collaborators</p>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? && (current_user == @post.user || @post.collaborators.include?(current_user)) %>
+    <%= link_to 'Edit Post', edit_post_path(@post), class: 'button' %>
+  <% end %>
 
   <%= link_to 'Back to All Posts', posts_path, class: 'button' %>
 </div>
