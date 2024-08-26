@@ -2,7 +2,14 @@ class Post < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :collaborators, class_name: 'User', join_table: 'collaborations'
 
-  validates :content, presence: true
+  validate :content_required_for_post_type
+
+
+  def content_required_for_post_type
+    if post_type.present? && %w[standard storytelling].include?(post_type) && content.blank?
+      errors.add(:content, "can't be blank")
+    end
+  end
   validates :title, presence: true
   validates :post_type, inclusion: { in: %w[standard storytelling gallery] }
 
