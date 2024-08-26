@@ -1,3 +1,11 @@
+/* Site Header */
+.site-header {
+  background: linear-gradient(90deg, #3b6978, #84a9ac); /* Moody gradient with a modern feel */
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Profile Page Styles */
 .profile-heading {
   text-align: center;
@@ -78,10 +86,11 @@
   }
 }
 
-.button-remove {
-  background-color: #e74c3c; /* Soft red */
+.button-subtle {
+  background-color: #bbb; /* Light gray for a less aggressive button */
   &:hover {
-    background-color: #ff6b6b; /* Brighter red on hover */
+    background-color: #ccc; /* Slightly darker on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
   }
 }
 
@@ -125,16 +134,20 @@
   padding: 10px 15px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  width: 120px;
+  width: 150px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
 }
 
 .friend-link {
-  display: block;
   font-size: 1.1em;
-  color: #333;
+  color: #333; /* Neutral dark color for links */
   font-weight: bold;
   text-decoration: none;
-  margin-bottom: 10px;
 
   &:hover {
     color: #555; /* Slightly lighter on hover */
@@ -162,23 +175,18 @@
 
 .post-item {
   border-bottom: 1px solid #ddd;
-  padding: 20px 0;
-  background-color: #fff; /* White background for individual posts */
-  border-radius: 10px;
+  padding: 15px 0;
+  background-color: #ffffff; /* White background for individual posts */
+  border-radius: 8px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
 }
 
 .post-title {
-  font-size: 1.3em;
-  margin: 0 0 10px;
+  font-size: 1.2em;
+  margin: 0;
   color: #333; /* Neutral dark color */
   font-weight: bold;
-  text-decoration: none;
-
-  &:hover {
-    color: #555; /* Slightly lighter on hover */
-  }
 }
 
 .post-image {

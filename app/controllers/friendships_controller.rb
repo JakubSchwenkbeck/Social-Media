@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  before_action :find_user, only: [:create, :accept, :destroy]
+  before_action :find_user, only: [:create, :accept, :ignore, :destroy]
 
   def create
     if current_user.send_friend_request(@user)
@@ -17,6 +17,14 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def ignore
+    if current_user.ignore_friend_request(@user)
+      redirect_to @user, notice: "Friend request ignored."
+    else
+      redirect_to @user, alert: "Unable to ignore friend request."
+    end
+  end
+
   def destroy
     if current_user.remove_friend(@user)
       redirect_to @user, notice: "Friend removed."
@@ -28,6 +36,6 @@ class FriendshipsController < ApplicationController
   private
 
   def find_user
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id]) # Updated to match the new routes with :id
   end
 end
