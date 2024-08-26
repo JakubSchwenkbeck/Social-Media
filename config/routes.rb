@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   get 'profile/:id', to: 'users#show', as: 'profile'
 
   # RESTful routes for posts
-  resources :posts
+  resources :posts do
+    # Custom routes for adding and removing collaborators
+    member do
+      post :add_collaborator
+      delete :remove_collaborator
+    end
+  end
 
   # Custom route to remove a user's profile picture
   delete '/remove_profile_picture', to: 'users#remove_profile_picture', as: :remove_profile_picture
