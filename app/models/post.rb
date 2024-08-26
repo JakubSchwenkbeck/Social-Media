@@ -1,17 +1,17 @@
 class Post < ApplicationRecord
-  # Establish a relationship indicating that each post belongs to a single user.
-  # This creates an association where each post record is linked to one user record.
   belongs_to :user
+  has_and_belongs_to_many :collaborators, class_name: 'User', join_table: 'collaborations'
 
-  # Validate that the content of the post is present (i.e., not blank).
-  # This ensures that a post cannot be saved without some content.
   validates :content, presence: true
-  
-  # Validate that the title of the post is present (i.e., not blank).
-  # This ensures that a post must have a title to be saved.
   validates :title, presence: true
 
-  # Add attachment handling for an image. This allows posts to have an attached image file.
-  # Uses ActiveStorage to manage file uploads and attachments.
   has_one_attached :image
+
+  def add_collaborator(user)
+    collaborators << user unless collaborators.include?(user)
+  end
+
+  def remove_collaborator(user)
+    collaborators.delete(user)
+  end
 end
