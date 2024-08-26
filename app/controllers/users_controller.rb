@@ -46,8 +46,17 @@ class UsersController < ApplicationController
 
   private
 
+  
   def set_user
     @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    sign_out_and_redirect(current_user) if user_signed_in?
+    redirect_to root_path, alert: "User not found. You have been signed out."
+  end
+
+  def sign_out_and_redirect(user)
+    sign_out user
+    # Perform redirect after signing out
   end
 
   def user_params

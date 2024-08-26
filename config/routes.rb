@@ -1,17 +1,12 @@
 Rails.application.routes.draw do
-  # Devise routes for user authentication, using custom controllers if needed
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
 
   # Routes for user profiles
   resources :users, only: [:edit, :update, :show] do
     member do
-      # Route to send a friend request
       post :send_friend_request, to: 'friendships#create'
-      # Route to accept a friend request
       patch :accept_friend_request, to: 'friendships#accept'
-      # Route to ignore (or decline) a friend request
       delete :ignore_friend_request, to: 'friendships#ignore'
-      # Route to remove a friend
       delete :remove_friend, to: 'friendships#destroy'
     end
   end
