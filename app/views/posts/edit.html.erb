@@ -13,26 +13,43 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+  <div class="form-group">
+    <%= form.label :post_type, 'Post Type' %>
+    <%= form.select :post_type, options_for_select([['Standard', 'standard'], ['Storytelling', 'storytelling'], ['Gallery', 'gallery']], @post.post_type), {}, class: 'form-control', id: 'post_type_select' %>
   </div>
 
-  <div class="field">
-    <%= form.label :image, "Post Image (optional)" %>
-    <%= form.file_field :image %>
+  <div id="standard-fields" class="form-group">
+    <%= form.label :image, 'Post Image (optional)' %>
+    <%= form.file_field :image, class: 'form-control' %>
     <% if @post.image.attached? %>
       <%= image_tag @post.image.variant(resize_to_limit: [300, 300]), alt: 'Post image', class: 'post-image' %>
     <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :collaborator_ids, "Collaborators" %>
+  <div id="storytelling-fields" class="form-group" style="display: none;">
+    <%= form.label :content, 'Content' %>
+    <%= form.text_area :content, class: 'form-control large-textarea' %>
+  </div>
+
+  <div id="gallery-fields" class="form-group" style="display: none;">
+    <%= form.label :images, 'Gallery Images (optional)', class: 'form-label' %>
+    <%= form.file_field :images, multiple: true, class: 'form-control' %>
+    <% if @post.images.attached? %>
+      <div class="gallery-preview">
+        <% @post.images.each do |image| %>
+          <%= image_tag image.variant(resize_to_limit: [150, 150]), alt: 'Gallery image', class: 'gallery-image' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :collaborator_ids, 'Collaborators' %>
     <%= form.collection_check_boxes :collaborator_ids, current_user.friends, :id, :username do |b| %>
       <div class="form-check">
         <%= b.check_box(class: 'form-check-input') %>
@@ -47,3 +64,22 @@
 <% end %>
 
 <%= link_to 'Back', posts_path, class: 'button' %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const postTypeSelect = document.getElementById('post_type_select');
+    const standardFields = document.getElementById('standard-fields');
+    const storytellingFields = document.getElementById('storytelling-fields');
+    const galleryFields = document.getElementById('gallery-fields');
+
+    function toggleFields() {
+      const selectedType = postTypeSelect.value;
+      standardFields.style.display = selectedType === 'standard' ? 'block' : 'none';
+      storytellingFields.style.display = selectedType === 'storytelling' ? 'block' : 'none';
+      galleryFields.style.display = selectedType === 'gallery' ? 'block' : 'none';
+    }
+
+    postTypeSelect.addEventListener('change', toggleFields);
+    toggleFields(); // Initial call to set the correct fields based on the current value
+  });
+</script>

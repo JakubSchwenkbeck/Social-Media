@@ -3,7 +3,7 @@
 
 <ul class="posts-list">
   <% @posts.each do |post| %>
-    <li class="post-item">
+    <li class="post-item <%= post.post_type %>-post">
       <div class="post-header">
         <% if post.user.profile_picture.attached? %>
           <%= link_to profile_path(post.user) do %>
@@ -23,7 +23,7 @@
             <ul class="collaborators-list">
               <% post.collaborators.each do |collaborator| %>
                 <li>
-                  <%= link_to collaborator.username, profile_path(collaborator) %>
+                  <%= link_to collaborator.username, profile_path(collaborator), class: 'collaborator-link' %>
                 </li>
               <% end %>
             </ul>
@@ -31,18 +31,37 @@
             <p>No collaborators</p>
           <% end %>
         </div>
+        <div class="post-type">
+          <strong>Type:</strong> <%= post.post_type.capitalize %>
+        </div>
       </div>
       <div class="post-content">
         <h2 class="post-title"><%= post.title %></h2>
 
-        <% if post.image.attached? %>
-          <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
+        <% case post.post_type %>
+        <% when 'standard' %>
+          <% if post.image.attached? %>
+            <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
+          <% end %>
+          <p class="post-caption"><%= post.content %></p>
+          
+        <% when 'storytelling' %>
+          <p class="post-long-text"><%= post.content %></p>
+          
+        <% when 'gallery' %>
+          <div class="gallery">
+            <% post.images.each do |img| %>
+              <%= image_tag img, alt: 'Gallery image', class: 'gallery-image' %>
+            <% end %>
+          </div>
+          <p class="gallery-caption"><%= post.content %></p>
+          
         <% end %>
-        <p><%= post.content %></p>
+
+        <% if user_signed_in? && (post.user == current_user || post.collaborators.include?(current_user)) %>
+          <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
+        <% end %>
       </div>
-      <% if user_signed_in? && (post.user == current_user || post.collaborators.include?(current_user)) %>
-        <%= link_to 'Edit', edit_post_path(post), class: 'button' %>
-      <% end %>
     </li>
   <% end %>
 </ul>

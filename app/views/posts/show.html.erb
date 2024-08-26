@@ -1,12 +1,29 @@
-<div class="single-post">
-  <h1><%= @post.title %></h1>
+<div class="single-post <%= @post.post_type %>-post">
+  <h1 class="post-title"><%= @post.title %></h1>
 
-  <% if @post.image.attached? %>
-    <%= image_tag @post.image, alt: 'Post image', class: 'post-image' %>
+  <% case @post.post_type %>
+  <% when 'standard' %>
+    <div class="standard-post-content">
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, alt: 'Post image', class: 'standard-post-image' %>
+      <% end %>
+      <p class="post-caption"><%= @post.content %></p>
+    </div>
+
+  <% when 'storytelling' %>
+    <div class="storytelling-post-content">
+      <p class="storytelling-text"><%= @post.content %></p>
+    </div>
+
+  <% when 'gallery' %>
+    <div class="gallery-post-content">
+      <% @post.images.each do |img| %>
+        <%= image_tag img, alt: 'Gallery image', class: 'gallery-image' %>
+      <% end %>
+    </div>
   <% end %>
 
-  <p><%= @post.content %></p>
-  <p>Posted by <%= link_to @post.user.username, profile_path(@post.user) %></p>
+  <p class="post-author">Posted by <%= link_to @post.user.username, profile_path(@post.user) %></p>
 
   <div class="post-collaborators">
     <strong>Collaborators:</strong>
@@ -24,8 +41,8 @@
   </div>
 
   <% if user_signed_in? && (current_user == @post.user || @post.collaborators.include?(current_user)) %>
-    <%= link_to 'Edit Post', edit_post_path(@post), class: 'button' %>
+    <%= link_to 'Edit Post', edit_post_path(@post), class: 'button edit-button' %>
   <% end %>
 
-  <%= link_to 'Back to All Posts', posts_path, class: 'button' %>
+  <%= link_to 'Back to All Posts', posts_path, class: 'button back-button' %>
 </div>

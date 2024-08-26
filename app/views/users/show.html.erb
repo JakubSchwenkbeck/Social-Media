@@ -23,7 +23,7 @@
       <% if @user == current_user %>
         <!-- User's own profile -->
         <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
-<%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
+        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
       <% elsif current_user.friends_with?(@user) %>
         <div class="friend-status">
           <p class="friend-status-text">You are friends</p>
@@ -65,14 +65,34 @@
   <% if @posts.any? %>
     <ul class="posts-list">
       <% @posts.each do |post| %>
-        <li class="post-item">
-          <h4 class="post-title"><%= link_to post.title, post_path(post) %></h4>
+        <li class="post-item <%= post.post_type %>-post">
+          <div class="post-header">
+            <h4 class="post-title"><%= link_to post.title, post_path(post) %></h4>
+            <span class="post-type"><strong>Type:</strong> <%= post.post_type.capitalize %></span>
+          </div>
           
-          <% if post.image.attached? %>
-            <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
+          <% case post.post_type %>
+          <% when 'standard' %>
+            <% if post.image.attached? %>
+              <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
+            <% end %>
+            <p class="post-content"><%= truncate(post.content, length: 100) %></p>
+
+          <% when 'storytelling' %>
+            <p class="post-long-text"><%= truncate(post.content, length: 100) %></p>
+
+          <% when 'gallery' %>
+            <% if post.images.present? %>
+              <div class="gallery-images">
+                <% post.images.each do |img| %>
+                  <%= image_tag img, alt: 'Gallery image', class: 'gallery-image' %>
+                <% end %>
+              </div>
+              <p class="gallery-caption"><%= truncate(post.content, length: 100) %></p>
+            <% end %>
+
           <% end %>
 
-          <p class="post-content"><%= truncate(post.content, length: 100) %></p>
         </li>
       <% end %>
     </ul>
