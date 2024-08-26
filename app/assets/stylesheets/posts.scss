@@ -32,6 +32,13 @@ body {
     color: $text-color;
   }
 
+  p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
   .post-image {
     max-width: 100%;
     border-radius: 10px;
@@ -39,11 +46,18 @@ body {
     border: 1px solid $border-color;
   }
 
-  p {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
+  .gallery-image {
+    max-width: calc(33.333% - 10px);
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid $border-color;
+  }
+
+  .gallery-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .post-collaborators {
@@ -102,5 +116,66 @@ body {
       background-color: $secondary-color;
       transform: translateY(-2px);
     }
+  }
+
+  /* Post Type Specific Styles */
+  &.standard-post {
+    .post-content {
+      .post-image {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+
+  &.storytelling-post {
+    .post-content {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+
+      p {
+        font-size: 18px;
+        color: $text-color;
+        white-space: pre-wrap; /* Preserve formatting */
+      }
+    }
+  }
+
+  &.gallery-post {
+    .post-content {
+      .gallery-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .gallery-image {
+        max-width: calc(33.333% - 10px);
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid $border-color;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .single-post {
+    padding: 15px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 10px 18px;
+  }
+
+  .gallery-image {
+    max-width: calc(50% - 10px); /* Adjust for smaller screens */
   }
 }

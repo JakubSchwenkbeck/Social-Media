@@ -44,6 +44,7 @@ h1 {
   }
 }
 
+/* Posts List */
 .posts-list {
   list-style-type: none;
   padding: 0;
@@ -62,6 +63,83 @@ h1 {
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Post Type Styles */
+  &.standard-post {
+    .post-content {
+      text-align: center;
+
+      .post-image {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border: 1px solid $border-color;
+      }
+
+      .post-title {
+        font-size: 28px;
+        margin: 15px 0;
+        color: $text-color;
+      }
+
+      p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  &.storytelling-post {
+    .post-content {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      
+      .post-title {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: $text-color;
+      }
+
+      p {
+        font-size: 18px;
+        color: $text-color;
+        white-space: pre-wrap; /* Preserve formatting */
+      }
+    }
+  }
+
+  &.gallery-post {
+    .post-content {
+      .gallery-image {
+        max-width: calc(33.333% - 10px);
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      .gallery-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .post-title {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: $text-color;
+      }
+
+      p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+      }
+    }
   }
 
   .post-header {
