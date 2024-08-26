@@ -23,7 +23,7 @@
       <% if @user == current_user %>
         <!-- User's own profile -->
         <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
-        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
       <% elsif current_user.friends_with?(@user) %>
         <div class="friend-status">
           <p class="friend-status-text">You are friends</p>
