@@ -7,6 +7,7 @@
     <% else %>
       <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
     <% end %>
+
     <div class="profile-details">
       <h2 class="profile-username"><%= @user.username %></h2>
       <% if @user.biography.present? %>
@@ -17,45 +18,44 @@
     </div>
   </div>
 
-  <% if user_signed_in? %>
-  <% if @user == current_user %>
-    <!-- User's own profile -->
-    <div class="user-actions">
-      <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
-      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
-    </div>
-    <h3>Your Friends</h3>
+  <div class="user-actions">
+    <% if user_signed_in? %>
+      <% if @user == current_user %>
+        <!-- User's own profile -->
+        <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
+        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
+      <% elsif current_user.friends_with?(@user) %>
+        <p>Befriended</p>
+        <%= button_to 'Remove Friend', remove_friend_user_path(@user), method: :delete, class: 'button' %>
+      <% elsif current_user.sent_request_to?(@user) %>
+        <p>Friend request already sent.</p>
+      <% elsif current_user.pending_request_from?(@user) %>
+        <%= button_to 'Accept Friend Request', accept_friend_request_user_path(@user), method: :patch, class: 'button' %>
+        <%= button_to 'Ignore Friend Request', remove_friend_user_path(@user), method: :delete, class: 'button' %>
+      <% else %>
+        <%= button_to 'Send Friend Request', send_friend_request_user_path(@user), method: :post, class: 'button', remote: true %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="friends-section">
+    <h3><%= @user == current_user ? 'Your Friends' : "#{@user.username}'s Friends" %></h3>
+
     <% if @user.friends.any? %>
       <ul class="friends-list">
         <% @user.friends.each do |friend| %>
           <li class="friend-item">
-            <%= link_to friend.username, profile_path(friend) %>
+            <%= link_to friend.username, user_path(friend), class: 'friend-link' %>
+            <% if @user == current_user %>
+              <%= button_to 'Remove', remove_friend_user_path(friend), method: :delete, class: 'remove-friend-button' %>
+            <% end %>
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p>You have no friends yet.</p>
+      <p>No friends yet.</p>
     <% end %>
-  <% elsif current_user.friends_with?(@user) %>
-    <div class="user-actions">
-      <p>Befriended</p>
-    </div>
-  <% elsif current_user.sent_request_to?(@user) %>
-    <div class="user-actions">
-      <p>Friend request already sent.</p>
-    </div>
-  <% elsif current_user.pending_request_from?(@user) %>
-    <div class="user-actions">
-      <%= button_to 'Accept Friend Request', accept_friendship_user_path(@user), method: :patch, class: 'button' %>
-      <%= button_to 'Ignore Friend Request', ignore_friendship_user_path(@user), method: :delete, class: 'button' %>
-    </div>
-  <% else %>
-    <div class="user-actions">
-      <%= button_to 'Send Friend Request', create_friendship_user_path(@user), method: :post, class: 'button', remote: true %>
-    </div>
-  <% end %>
-<% end %>
-
+  </div>
 </div>
 
 <div class="user-posts">

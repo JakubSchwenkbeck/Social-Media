@@ -1,62 +1,33 @@
 class FriendshipsController < ApplicationController
-  before_action :set_user, only: [:create, :accept, :ignore, :destroy]
-  before_action :authenticate_user!
+  before_action :find_user, only: [:create, :accept, :destroy]
 
-  # Send a friend request
   def create
-    if current_user.friends_with?(@user)
-      redirect_to profile_path(@user), notice: 'You are already friends.'
-    elsif current_user.sent_request_to?(@user)
-      redirect_to profile_path(@user), notice: 'Friend request already sent.'
-    elsif current_user.pending_request_from?(@user)
-      redirect_to profile_path(@user), notice: 'Friend request already pending from this user.'
-    elsif @user == current_user
-      redirect_to profile_path(@user), alert: "You can't send a friend request to yourself."
+    if current_user.send_friend_request(@user)
+      redirect_to @user, notice: "Friend request sent."
     else
-      if current_user.send_friend_request(@user)
-        redirect_to profile_path(@user), notice: 'Friend request sent successfully.'
-      else
-        redirect_to profile_path(@user), alert: 'Unable to send friend request.'
-      end
+      redirect_to @user, alert: "Unable to send friend request."
     end
   end
 
-
-  # Accept a friend request
   def accept
-    friendship = current_user.received_friendships.find_by(user: @user)
-    if friendship
-      friendship.update(status: :accepted)
-      redirect_to @user, notice: 'Friend request accepted.'
+    if current_user.accept_friend_request(@user)
+      redirect_to @user, notice: "Friend request accepted."
     else
-      redirect_to root_path, alert: 'Friend request not found.'
+      redirect_to @user, alert: "Unable to accept friend request."
     end
   end
 
-  # Ignore (delete) a friend request
-  def ignore
-    friendship = current_user.received_friendships.find_by(user: @user)
-    if friendship
-      friendship.destroy
-      redirect_to @user, notice: 'Friend request ignored.'
-    else
-      redirect_to root_path, alert: 'Friend request not found.'
-    end
-  end
-
-  # Remove a friend
   def destroy
-    if current_user.friends_with?(@user)
-      current_user.remove_friend(@user)
-      redirect_to @user, notice: 'Friend removed.'
+    if current_user.remove_friend(@user)
+      redirect_to @user, notice: "Friend removed."
     else
-      redirect_to @user, alert: 'No friendship exists to remove.'
+      redirect_to @user, alert: "Unable to remove friend."
     end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def find_user
+    @user = User.find(params[:user_id])
   end
 end

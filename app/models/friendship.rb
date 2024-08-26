@@ -4,10 +4,25 @@ class Friendship < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1 }
 
-  validates :user_id, uniqueness: { scope: :friend_id }
-  validate :not_self
+  validates :user_id, uniqueness: { scope: :friend_id, message: "Friendship already exists" }
 
-  def not_self
-    errors.add(:friend, "can't be equal to user") if user == friend
+  # Ensure symmetrical friendships
+  after_create :create_inverse, unless: :inverse_exists?
+  after_destroy :destroy_inverse, if: :inverse_exists?
+
+  def create_inverse
+    self.class.create(user: friend, friend: user, status: status)
+  end
+
+  def destroy_inverse
+    inverse&.destroy
+  end
+
+  def inverse
+    self.class.find_by(user: friend, friend: user)
+  end
+
+  def inverse_exists?
+    self.class.exists?(user: friend, friend: user)
   end
 end

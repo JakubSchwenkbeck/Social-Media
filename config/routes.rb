@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update, :show] do
     member do
       # Route to send a friend request
-      post :create_friendship, to: 'friendships#create'
+      post :send_friend_request, to: 'friendships#create'
       # Route to accept a friend request
-      patch :accept_friendship, to: 'friendships#accept'
-      # Route to ignore a friend request
-      delete :ignore_friendship, to: 'friendships#ignore'
+      patch :accept_friend_request, to: 'friendships#accept'
+      # Route to ignore (or decline) a friend request
+      delete :ignore_friend_request, to: 'friendships#ignore'
       # Route to remove a friend
-      delete :remove_friendship, to: 'friendships#destroy'
+      delete :remove_friend, to: 'friendships#destroy'
     end
   end
 
