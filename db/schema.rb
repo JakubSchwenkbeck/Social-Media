@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_26_142659) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_26_161529) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,21 +59,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_142659) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
-  create_table "post_collaborations", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_post_collaborations_on_post_id"
-    t.index ["user_id"], name: "index_post_collaborations_on_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
+    t.string "post_type", default: "standard"
+    t.index ["post_type"], name: "index_posts_on_post_type"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -98,7 +91,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_142659) do
   add_foreign_key "collaborations", "users"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
-  add_foreign_key "post_collaborations", "posts"
-  add_foreign_key "post_collaborations", "users"
   add_foreign_key "posts", "users"
 end

@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   def add_collaborator
     user = User.find(params[:user_id])
     if current_user.friends_with?(user) && !@post.collaborators.include?(user)
-      @post.collaborators << user
+      @post.add_collaborator(user)
       redirect_to @post, notice: "#{user.username} has been added as a collaborator."
     else
       redirect_to @post, alert: "Unable to add collaborator."
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   def remove_collaborator
     user = User.find(params[:user_id])
     if @post.collaborators.include?(user)
-      @post.collaborators.delete(user)
+      @post.remove_collaborator(user)
       redirect_to @post, notice: "#{user.username} has been removed as a collaborator."
     else
       redirect_to @post, alert: "Unable to remove collaborator."
@@ -73,6 +73,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, collaborator_ids: [])
+    params.require(:post).permit(:title, :content, :image, :post_type, images: [], collaborator_ids: [])
   end
 end
