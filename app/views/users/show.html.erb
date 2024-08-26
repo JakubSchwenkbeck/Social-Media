@@ -3,7 +3,7 @@
 <div class="profile-container">
   <div class="profile-header">
     <% if @user.profile_picture.attached? %>
-      <%= image_tag @user.profile_picture, alt: @user.username, style: 'width: 150px; height: 150px;' %>
+      <%= image_tag @user.profile_picture, alt: @user.username, class: 'profile-pic' %>
     <% else %>
       <%= image_tag 'default_profile_picture.jpg', alt: 'Default profile picture', class: 'profile-pic' %>
     <% end %>
@@ -25,35 +25,39 @@
         <%= link_to 'Edit Profile', edit_user_registration_path, class: 'button' %>
         <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button button-sign-out' %>
       <% elsif current_user.friends_with?(@user) %>
-        <p>Befriended</p>
-        <%= button_to 'Remove Friend', remove_friend_user_path(@user), method: :delete, class: 'button' %>
+        <div class="friend-status">
+          <p class="friend-status-text">You are friends</p>
+          <%= button_to 'Remove Friend', remove_friend_user_path(@user), method: :delete, class: 'button button-remove' %>
+        </div>
       <% elsif current_user.sent_request_to?(@user) %>
-        <p>Friend request already sent.</p>
+        <p class="friend-status-text">Friend request already sent.</p>
       <% elsif current_user.pending_request_from?(@user) %>
-        <%= button_to 'Accept Friend Request', accept_friend_request_user_path(@user), method: :patch, class: 'button' %>
-        <%= button_to 'Ignore Friend Request', remove_friend_user_path(@user), method: :delete, class: 'button' %>
+        <div class="friend-requests">
+          <%= button_to 'Accept', accept_friend_request_user_path(@user), method: :patch, class: 'button' %>
+          <%= button_to 'Ignore', ignore_friend_request_user_path(@user), method: :delete, class: 'button button-remove' %>
+        </div>
       <% else %>
-        <%= button_to 'Send Friend Request', send_friend_request_user_path(@user), method: :post, class: 'button', remote: true %>
+        <%= button_to 'Send Friend Request', send_friend_request_user_path(@user), method: :post, class: 'button' %>
       <% end %>
     <% end %>
   </div>
 
   <div class="friends-section">
-    <h3><%= @user == current_user ? 'Your Friends' : "#{@user.username}'s Friends" %></h3>
+    <h3 class="friends-heading"><%= @user == current_user ? 'Your Friends' : "#{@user.username}'s Friends" %></h3>
 
     <% if @user.friends.any? %>
       <ul class="friends-list">
         <% @user.friends.each do |friend| %>
           <li class="friend-item">
-            <%= link_to friend.username, user_path(friend), class: 'friend-link' %>
+            <%= link_to friend.username, profile_path(friend), class: 'friend-link' %>
             <% if @user == current_user %>
-              <%= button_to 'Remove', remove_friend_user_path(friend), method: :delete, class: 'remove-friend-button' %>
+              <%= button_to 'Remove', remove_friend_user_path(friend), method: :delete, class: 'button button-remove' %>
             <% end %>
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p>No friends yet.</p>
+      <p class="no-friends-message">No friends yet.</p>
     <% end %>
   </div>
 </div>
@@ -68,7 +72,7 @@
           <h4 class="post-title"><%= link_to post.title, post_path(post) %></h4>
           
           <% if post.image.attached? %>
-            <%= image_tag post.image, alt: 'Post image', style: 'max-width: 150px; max-height: 150px; width: auto; height: auto;' %>
+            <%= image_tag post.image, alt: 'Post image', class: 'post-image' %>
           <% end %>
 
           <p class="post-content"><%= truncate(post.content, length: 100) %></p>
