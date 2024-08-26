@@ -4,6 +4,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Attachment for profile picture using ActiveStorage
+  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :password, length: { minimum: 6 }, allow_blank: true
   has_one_attached :profile_picture
 
   has_many :posts, dependent: :destroy
