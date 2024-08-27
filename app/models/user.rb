@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_save :check_for_sql_injection
+
   # Devise modules for user authentication
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -64,7 +66,15 @@ class User < ApplicationRecord
   validate :acceptable_image
 
   private
-
+  def check_for_sql_injection
+    fields_to_check = [email, username, biography]
+    fields_to_check.each do |field|
+      if SqlInjectionDetection::Checker.check(field)
+        errors.add(:base, "Invalid input detected. Please avoid using potentially harmful SQL statements.")
+        throw :abort
+      end
+    end
+  end
   def acceptable_image
     return unless profile_picture.attached?
 
