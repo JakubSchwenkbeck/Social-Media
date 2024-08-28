@@ -1,4 +1,11 @@
 <h1>All Posts</h1>
+
+<!-- Dropdown Filter -->
+<%= form_with url: posts_path, method: :get, local: true, class: 'filter-form' do %>
+  <%= select_tag :filter, options_for_select([['All', ''], ['Standard', 'standard'], ['Story-telling', 'storytelling'], ['Gallery', 'gallery']], params[:filter]), include_blank: false, class: 'filter-select' %>
+  <%= submit_tag 'Filter', class: 'button' %>
+<% end %>
+
 <%= link_to 'New Post', new_post_path, class: 'button' %>
 
 <ul class="posts-list">
@@ -17,12 +24,13 @@
         <div class="user-info">
           <%= link_to post.user.username, profile_path(post.user), class: 'username' %>
         </div>
+
         <div class="post-collaborators">
           <strong>Collaborators:</strong>
           <% if post.collaborators.any? %>
             <ul class="collaborators-list">
               <% post.collaborators.each do |collaborator| %>
-                <li>
+                <li class="collaborator-item">
                   <%= link_to collaborator.username, profile_path(collaborator), class: 'collaborator-link' %>
                 </li>
               <% end %>
@@ -31,6 +39,7 @@
             <p>No collaborators</p>
           <% end %>
         </div>
+
         <div class="post-type">
           <strong>Type:</strong> <%= post.post_type.capitalize %>
         </div>

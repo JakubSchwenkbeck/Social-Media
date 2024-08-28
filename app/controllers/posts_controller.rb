@@ -4,9 +4,14 @@ class PostsController < ApplicationController
   before_action :authorize_post, only: %i[edit update destroy add_collaborator remove_collaborator]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    # Handle filtering
+    if params[:filter].present?
+      @posts = Post.where(post_type: params[:filter])
+    else
+      @posts = Post.all.order(created_at: :desc)
+    end
   end
-
+  
   def new
     @post = current_user.posts.build
   end

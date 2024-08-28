@@ -191,11 +191,10 @@ h1 {
         gap: 10px; /* Space between collaborators */
 
         li {
-          margin-right: 10px;
           font-size: 16px;
           color: $primary-color;
 
-          a {
+          .collaborator-link {
             text-decoration: none;
             color: $primary-color;
             transition: color 0.3s ease;
@@ -232,6 +231,24 @@ h1 {
       line-height: 1.6;
     }
   }
+}
+.filter-form {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-select {
+  margin-right: 10px;
+}
+
+.filter-select, .button {
+  font-size: 16px;
+}
+
+.button {
+  margin: 0;
+  padding: 10px 20px;
 }
 
 @media (max-width: 768px) {
