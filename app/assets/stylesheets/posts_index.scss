@@ -125,7 +125,12 @@ h1 {
       .gallery-preview {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 10px; /* Space between collaborators */
+
+        .gallery-image {
+          flex: 1;
+          margin-bottom: 10px;
+        }
       }
 
       .post-title {
@@ -232,23 +237,41 @@ h1 {
     }
   }
 }
+
+/* Filter Form Styles */
 .filter-form {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-}
 
-.filter-select {
-  margin-right: 10px;
-}
+  .filter-select {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    font-size: 16px;
+    color: $text-color;
+    background-color: #fff;
+    box-shadow: 0 2px 4px $shadow-color;
+    transition: border-color 0.3s ease;
 
-.filter-select, .button {
-  font-size: 16px;
-}
+    &:hover {
+      border-color: $primary-color;
+    }
+  }
 
-.button {
-  margin: 0;
-  padding: 10px 20px;
+  .filter-style {
+    background-color: #f0f4f8; /* Light background for style filter */
+  }
+
+  .filter-mood {
+    background-color: #e0f7fa; /* Light background for mood filter */
+  }
+
+  .button {
+    margin: 0;
+    padding: 10px 20px;
+  }
 }
 
 @media (max-width: 768px) {
