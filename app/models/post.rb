@@ -11,6 +11,7 @@ class Post < ApplicationRecord
       errors.add(:content, "can't be blank")
     end
   end
+
   validates :title, presence: true
   validates :post_type, inclusion: { in: %w[standard storytelling gallery] }
 
@@ -36,6 +37,8 @@ class Post < ApplicationRecord
   def gallery_post?
     post_type == 'gallery'
   end
+
+  # Join mood_tags for display purposes
   def mood_tags_list
     mood_tags.join(', ')
   end

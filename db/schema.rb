@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_28_115948) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_28_121159) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,6 +59,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_115948) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
+  create_table "mood_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "content"
@@ -66,7 +72,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_115948) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "post_type", default: "standard"
-    t.text "mood_tags"
+    t.text "mood_tags", default: "[]"
     t.index ["post_type"], name: "index_posts_on_post_type"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
