@@ -2,18 +2,13 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :add_collaborator, :remove_collaborator]
   before_action :set_post, only: %i[show edit update destroy add_collaborator remove_collaborator]
   before_action :authorize_post, only: %i[edit update destroy add_collaborator remove_collaborator]
+  before_action :set_mood_tags, only: [:index]
 
   def index
-    # Handle filtering
-    if params[:Stylefilter].present?
-      @posts = Post.where(post_type: params[:Stylefilter])
-    else
-      @posts = Post.all.order(created_at: :desc)
-    end
-    if params[:Moodfilter].present?
-      @posts = Post.where(post_type: params[:Moodfilter])
-    else
-      @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all
+    @posts = @posts.where(post_type: params[:Stylefilter]) if params[:Stylefilter].present?
+    if params[:Moodfilter].present? && params[:Moodfilter] != 'All'
+      @posts = @posts.joins(:mood_tags).where(mood_tags: { name: params[:Moodfilter] })
     end
   end
   
@@ -92,5 +87,8 @@ class PostsController < ApplicationController
       collaborator_ids: [],
       mood_tags: [] # Permit mood_tags as an array
     )
+  end
+  def set_mood_tags
+    @mood_tags = MoodTag.pluck(:name)
   end
 end
