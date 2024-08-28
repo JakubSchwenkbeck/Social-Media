@@ -41,6 +41,12 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :mood_tags, 'Mood Tags' %>
+    <%= form.select :mood_tags, options_for_select(MoodTag.all.pluck(:name, :name), @post.mood_tags), { multiple: true, size: 5 }, class: 'form-control' %>
+    <small class="form-text text-muted">Select up to 5 moods.</small>
+  </div>
+
+  <div class="form-group">
     <%= form.submit 'Save Post', class: 'btn btn-primary' %>
   </div>
 <% end %>

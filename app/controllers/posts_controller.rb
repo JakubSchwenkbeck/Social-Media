@@ -83,6 +83,14 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :post_type, :image, images: [], collaborator_ids: [])
+    params.require(:post).permit(
+      :title,
+      :post_type,
+      :content,
+      :image,
+      images: [], # For gallery posts
+      collaborator_ids: [],
+      mood_tags: [] # Permit mood_tags as an array
+    )
   end
 end

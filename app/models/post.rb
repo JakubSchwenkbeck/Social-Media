@@ -4,7 +4,8 @@ class Post < ApplicationRecord
 
   validate :content_required_for_post_type
 
-  serialize :mood_tags, Array # Enables storing an array of strings
+  before_save :serialize_mood_tags
+  after_find :deserialize_mood_tags
 
   def content_required_for_post_type
     if post_type.present? && %w[standard storytelling].include?(post_type) && content.blank?
@@ -41,5 +42,27 @@ class Post < ApplicationRecord
   # Join mood_tags for display purposes
   def mood_tags_list
     mood_tags.join(', ')
+  end
+
+  def mood_tags
+    # Deserialize JSON string into an array
+    JSON.parse(read_attribute(:mood_tags) || "[]")
+  rescue JSON::ParserError
+    []
+  end
+
+  def mood_tags=(value)
+    # Serialize array into JSON string
+    write_attribute(:mood_tags, value.to_json)
+  end
+
+  private
+
+  def serialize_mood_tags
+    self.mood_tags = mood_tags
+  end
+
+  def deserialize_mood_tags
+    self.mood_tags = mood_tags
   end
 end
