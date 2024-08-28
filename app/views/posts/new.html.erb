@@ -2,13 +2,17 @@
 
 <%= form_with(model: @post, local: true, html: { multipart: true }) do |form| %>
   <div class="form-group">
-    <%= form.label :title %>
+    <%= form.label :title, 'Title' %>
     <%= form.text_field :title, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= form.label :post_type, 'Post Type' %>
-    <%= form.select :post_type, options_for_select([['Standard', 'standard'], ['Storytelling', 'storytelling'], ['Gallery', 'gallery']]), {}, class: 'form-control', id: 'post_type_select' %>
+    <%= form.select :post_type, options_for_select([
+      ['Standard', 'standard'], 
+      ['Storytelling', 'storytelling'], 
+      ['Gallery', 'gallery']
+    ]), {}, class: 'form-control', id: 'post_type_select' %>
   </div>
 
   <div id="standard-fields" class="form-group">
@@ -28,7 +32,7 @@
 
   <div class="form-group">
     <%= form.label :collaborator_ids, 'Collaborators' %>
-    <%= form.collection_check_boxes :collaborator_ids, current_user.friends, :id, :username, class: 'form-check-input' do |b| %>
+    <%= form.collection_check_boxes :collaborator_ids, current_user.friends, :id, :username do |b| %>
       <div class="form-check">
         <%= b.check_box(class: 'form-check-input') %>
         <%= b.label(class: 'form-check-label') %>

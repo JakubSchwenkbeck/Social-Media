@@ -5,8 +5,13 @@ class PostsController < ApplicationController
 
   def index
     # Handle filtering
-    if params[:filter].present?
-      @posts = Post.where(post_type: params[:filter])
+    if params[:Stylefilter].present?
+      @posts = Post.where(post_type: params[:Stylefilter])
+    else
+      @posts = Post.all.order(created_at: :desc)
+    end
+    if params[:Moodfilter].present?
+      @posts = Post.where(post_type: params[:Moodfilter])
     else
       @posts = Post.all.order(created_at: :desc)
     end

@@ -4,6 +4,7 @@ class Post < ApplicationRecord
 
   validate :content_required_for_post_type
 
+  serialize :mood_tags, Array # Enables storing an array of strings
 
   def content_required_for_post_type
     if post_type.present? && %w[standard storytelling].include?(post_type) && content.blank?
@@ -34,5 +35,8 @@ class Post < ApplicationRecord
 
   def gallery_post?
     post_type == 'gallery'
+  end
+  def mood_tags_list
+    mood_tags.join(', ')
   end
 end

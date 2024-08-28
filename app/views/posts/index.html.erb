@@ -2,7 +2,12 @@
 
 <!-- Dropdown Filter -->
 <%= form_with url: posts_path, method: :get, local: true, class: 'filter-form' do %>
-  <%= select_tag :filter, options_for_select([['All', ''], ['Standard', 'standard'], ['Story-telling', 'storytelling'], ['Gallery', 'gallery']], params[:filter]), include_blank: false, class: 'filter-select' %>
+  <%= select_tag :Stylefilter, options_for_select([['All', ''], ['Standard', 'standard'], ['Story-telling', 'storytelling'], ['Gallery', 'gallery']], params[:filter]), include_blank: false, class: 'filter-select' %>
+  <%= submit_tag 'Filter', class: 'button' %>
+<% end %>
+<!-- Dropdown Filter -->
+<%= form_with url: posts_path, method: :get, local: true, class: 'filter-form' do %>
+  <%= select_tag :Moodfilter, options_for_select(['All', 'Happy', 'Sad', 'Excited', 'Relaxed'], params[:filter]), include_blank: false, class: 'filter-select' %>
   <%= submit_tag 'Filter', class: 'button' %>
 <% end %>
 
