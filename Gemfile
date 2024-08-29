@@ -23,6 +23,11 @@ gem "devise"
 # gem "kredis"
 gem 'sassc-rails'
 
+# Gemfile
+gem 'matrix'       # For matrix operations
+gem 'daru'         # Data manipulation and analysis
+gem 'ruby-linear-regression' # For basic machine learning
+
 # MY OWN GEM FOR SQL INJECTION  DETECTION
 gem 'sql_injection_detection'
 
