@@ -1,15 +1,14 @@
 <h1>All Posts</h1>
 
-<!-- Dropdown Filter -->
-<!-- Dropdown Filter for Post Style -->
+<!-- Combined Dropdown Filter Form -->
 <%= form_with url: posts_path, method: :get, local: true, class: 'filter-form' do %>
+  <!-- Dropdown Filter for Post Style -->
   <%= select_tag :Stylefilter, options_for_select([['All', ''], ['Standard', 'standard'], ['Story-telling', 'storytelling'], ['Gallery', 'gallery']], params[:Stylefilter]), include_blank: false, class: 'filter-select filter-style' %>
-  <%= submit_tag 'Filter', class: 'button' %>
-<% end %>
 
-<!-- Dropdown Filter for Mood -->
-<%= form_with url: posts_path, method: :get, local: true, class: 'filter-form' do %>
+  <!-- Dropdown Filter for Mood -->
   <%= select_tag :Moodfilter, options_for_select(@mood_tags.unshift('All'), params[:Moodfilter]), include_blank: false, class: 'filter-select filter-mood' %>
+
+  <!-- Single Filter Button -->
   <%= submit_tag 'Filter', class: 'button' %>
 <% end %>
 

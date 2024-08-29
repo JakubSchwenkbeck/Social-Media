@@ -5,12 +5,25 @@ class PostsController < ApplicationController
   before_action :set_mood_tags, only: [:index]
 
   def index
+    @mood_tags = MoodTag.pluck(:name) # Assuming you have a MoodTag model with names
+  
     @posts = Post.all
-    @posts = @posts.where(post_type: params[:Stylefilter]) if params[:Stylefilter].present?
-    if params[:Moodfilter].present? && params[:Moodfilter] != 'All'
-      @posts = @posts.joins(:mood_tags).where(mood_tags: { name: params[:Moodfilter] })
+  
+    # Apply Stylefilter if present
+    if params[:Stylefilter].present? && params[:Stylefilter] != ''
+      @posts = @posts.where(post_type: params[:Stylefilter])
     end
+  
+    # Apply Moodfilter if present
+    if params[:Moodfilter].present? && params[:Moodfilter] != 'All'
+      # Use LIKE query to check if the mood filter is part of the serialized JSON array
+      @posts = @posts.where("mood_tags LIKE ?", "%\"#{params[:Moodfilter]}\"%")
+    end
+  
+    # Order the posts in descending order by created_at
+    @posts = @posts.order(created_at: :desc)
   end
+  
   
   def new
     @post = current_user.posts.build
