@@ -1,5 +1,6 @@
 # app/services/recommendation_service.rb
 require 'daru'
+require 'matrix'
 
 class RecommendationService
   def initialize(user_data, item_data)
@@ -16,19 +17,20 @@ class RecommendationService
       recommendations << { item_id: item_id, similarity: similarity }
     end
 
-    recommendations.sort_by { |r| -r[:similarity] }
+    recommendations.sort_by { |r| -r[:similarity] }.take(10) # Top 10 recommendations
   end
 
   private
 
   def calculate_similarity(user_preferences, item_features)
-    # Simple similarity measure: cosine similarity or dot product
     user_vector = Daru::Vector.new(user_preferences)
     item_vector = Daru::Vector.new(item_features)
 
     dot_product = user_vector.dot(item_vector)
     magnitude_user = Math.sqrt(user_vector.dot(user_vector))
     magnitude_item = Math.sqrt(item_vector.dot(item_vector))
+
+    return 0 if magnitude_user.zero? || magnitude_item.zero?
 
     dot_product / (magnitude_user * magnitude_item)
   end
