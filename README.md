@@ -13,21 +13,22 @@
    - **Multimedia Support:** Attach images to posts to visually enrich your stories and experiences.
    - **Post Organization:** Posts are displayed in reverse chronological order, making it easy to stay updated on the latest content.
 
-### 3. **Comments and Likes**
-   - **Interactive Content:** Users can comment on posts to engage in conversations, share feedback, or add their own anecdotes.
-   - **Liking Posts:** Users can like posts to show their appreciation for the shared content.
-
-### 4. **Friendships**
+### 3. **Friendships**
    - **Friend Requests:** Users can send and accept friend requests to connect with others on the platform.
    - **Symmetrical Friendships:** Once a friend request is accepted, both users become friends, allowing them to see and interact with each other's content.
    - **Manage Friendships:** Users can view their friends list, remove friends, and manage their connections from their profile.
 
-### 5. **Collaborative Memory Sharing** (In Work)
-   - **Group Posts:** Users can collaborate with friends to create shared posts, contributing to a collective memory or experience.
-   - **Storytelling:** Encourage group participation in telling stories by allowing multiple users to add content to a single post.
+### 4. **Collaborative Memory Sharing**
+   - **Storytelling:** Users can collaborate with friends to create long, interconnected stories, where multiple users contribute to a shared narrative, enhancing the collective memory experience.
+   - **Gallery for Shared Photos:** Easily create and share galleries where friends can collectively add photos, capturing the essence of shared experiences and events.
+   - **Standard Posts:** Users can still create individual posts to share personal anecdotes, stories, or thoughts.
 
-### 6. **Responsive Design**
+### 5. **Responsive Design**
    - **User-Friendly Interface:** Anecdote is designed to be responsive, providing an optimal viewing experience across a wide range of devices in the web, from mobile phones to desktop computers.
+
+### 6. **AI for Recommendations and Sentiment Analysis**
+   - **Personalized Recommendations:** Anecdote uses AI to suggest friends, groups, or content that aligns with your interests and interactions, making your experience more engaging and relevant.
+   - **Sentiment Analysis:** The platform can analyze the sentiment of posts and comments, offering insights into the emotional tone of shared content, and promoting positive interactions within the community.
 
 ### 7. **Notifications (Planned)**
    - **Stay Informed:** Future updates will include notifications to keep users informed of new friend requests, comments, and likes on their posts.
