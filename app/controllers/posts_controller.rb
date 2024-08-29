@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     end
   
     # Order the posts in descending order by created_at
-    @posts = @posts.order(created_at: :desc)
+    @posts = @posts.all.order(created_at: :desc)
   end
   
   
