@@ -12,23 +12,29 @@
       ['Standard', 'standard'], 
       ['Storytelling', 'storytelling'], 
       ['Gallery', 'gallery']
-    ]), {}, class: 'form-control', id: 'post_type_select' %>
+    ]), {}, class: 'form-control' %>
   </div>
 
-  <div id="standard-fields" class="form-group">
-    <%= form.label :image, 'Post Image (optional)' %>
-    <%= form.file_field :image, class: 'form-control' %>
-  </div>
+  <% if @post.standard_post? || @post.gallery_post? %>
+    <div class="form-group">
+      <%= form.label :image, 'Post Image (optional)' %>
+      <%= form.file_field :image, class: 'form-control' %>
+    </div>
+  <% end %>
 
-  <div id="storytelling-fields" class="form-group" style="display: none;">
-    <%= form.label :content, 'Content' %>
-    <%= form.text_area :content, class: 'form-control large-textarea' %>
-  </div>
+  <% if @post.storytelling_post? ||@post.standard_post? %>
+    <div class="form-group">
+      <%= form.label :content, 'Content' %>
+      <%= form.text_area :content, class: 'form-control large-textarea' %>
+    </div>
+  <% end %>
 
-  <div id="gallery-fields" class="form-group" style="display: none;">
-    <%= form.label :images, 'Gallery Images (optional)' %>
-    <%= form.file_field :images, multiple: true, class: 'form-control' %>
-  </div>
+  <% if @post.gallery_post? %>
+    <div class="form-group">
+      <%= form.label :images, 'Gallery Images (optional)' %>
+      <%= form.file_field :images, multiple: true, class: 'form-control' %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= form.label :collaborator_ids, 'Collaborators' %>
@@ -52,22 +58,3 @@
 <% end %>
 
 <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const postTypeSelect = document.getElementById('post_type_select');
-    const standardFields = document.getElementById('standard-fields');
-    const storytellingFields = document.getElementById('storytelling-fields');
-    const galleryFields = document.getElementById('gallery-fields');
-
-    function toggleFields() {
-      const selectedType = postTypeSelect.value;
-      standardFields.style.display = selectedType === 'standard' ? 'block' : 'none';
-      storytellingFields.style.display = selectedType === 'storytelling' ? 'block' : 'none';
-      galleryFields.style.display = selectedType === 'gallery' ? 'block' : 'none';
-    }
-
-    postTypeSelect.addEventListener('change', toggleFields);
-    toggleFields(); // Initial call to set the correct fields based on the current value
-  });
-</script>

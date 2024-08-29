@@ -77,6 +77,17 @@ class PostsController < ApplicationController
       redirect_to @post, alert: "Unable to remove collaborator."
     end
   end
+  def standard_post?
+    post_type == 'standard'
+  end
+
+  def storytelling_post?
+    post_type == 'storytelling'
+  end
+
+  def gallery_post?
+    post_type == 'gallery'
+  end
 
   private
 
@@ -89,6 +100,7 @@ class PostsController < ApplicationController
       redirect_to @post, alert: "You are not authorized to edit this post."
     end
   end
+
 
   def post_params
     params.require(:post).permit(
