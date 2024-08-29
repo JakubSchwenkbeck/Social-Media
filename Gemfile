@@ -23,6 +23,9 @@ gem "devise"
 # gem "kredis"
 gem 'sassc-rails'
 
+gem 'textacular' # For text search and sentiment analysis
+gem 'textblob'   # A Ruby wrapper for TextBlob for sentiment analysis
+
 # Gemfile
 gem 'matrix'       # For matrix operations
 gem 'daru'         # Data manipulation and analysis
