@@ -34,6 +34,16 @@
    - **Stay Informed:** Future updates will include notifications to keep users informed of new friend requests, comments, and likes on their posts.
 
 ## Getting Started
+## Screenshots
+
+### Sign Up
+<img src="https://github.com/user-attachments/assets/71b3a96c-e146-49ce-8a87-84db4358b0aa" alt="Sign Up Page" width="600"/>
+
+### Main Page
+<img src="https://github.com/user-attachments/assets/97d115e7-bc57-49f9-a66f-6ee754f333c0" alt="Main Page" width="600"/>
+
+### Profile
+<img src="https://github.com/user-attachments/assets/ea904629-e8f0-4b52-ae47-65e21ee8a09f" alt="Profile Page" width="600"/>
 
 ### Why Ruby On Rails?
 **Ruby on Rails excels in web development with the following features:**
@@ -43,7 +53,6 @@
 - **SCSS**: Provides advanced styling capabilities, making it easy to create responsive and visually appealing designs.
 - **Convention Over Configuration**: Reduces decision-making and setup time with sensible defaults, accelerating development.
 
-![image](https://github.com/user-attachments/assets/2298e049-d18a-4c68-bbd9-14ee721193bd)
 
 ### Prerequisites
 
