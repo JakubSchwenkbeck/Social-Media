@@ -43,6 +43,7 @@
 - **SCSS**: Provides advanced styling capabilities, making it easy to create responsive and visually appealing designs.
 - **Convention Over Configuration**: Reduces decision-making and setup time with sensible defaults, accelerating development.
 
+![image](https://github.com/user-attachments/assets/2298e049-d18a-4c68-bbd9-14ee721193bd)
 
 ### Prerequisites
 
