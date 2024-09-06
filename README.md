@@ -61,7 +61,7 @@
 - **SQLite3:** Used as the database in development
 
 ### To get started with this project:
-
+ (This repo is not the full directory as there are sensitive informations, if you want to have a full working repo, contact me :))
 1. **Clone the Repository:**
    `git clone https://github.com/JakubSchwenkbeck/Social-Media/.git`
 2. **Navigate to the Root Directory:**
